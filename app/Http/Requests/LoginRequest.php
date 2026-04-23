@@ -1,0 +1,43 @@
+<?php
+
+namespace App\Http\Requests;
+
+// Artisan: php artisan make:request LoginRequest
+// Path: app/Http/Requests/LoginRequest.php
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class LoginRequest extends FormRequest
+{
+    /**
+     * Tentukan apakah user berhak melakukan request ini.
+     */
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    /**
+     * Aturan validasi untuk login.
+     */
+    public function rules(): array
+    {
+        return [
+            'email'    => ['required', 'email'],
+            'password' => ['required', 'string', 'min:6'],
+        ];
+    }
+
+    /**
+     * Pesan error kustom (Bahasa Indonesia).
+     */
+    public function messages(): array
+    {
+        return [
+            'email.required'    => 'Email wajib diisi.',
+            'email.email'       => 'Format email tidak valid.',
+            'password.required' => 'Password wajib diisi.',
+            'password.min'      => 'Password minimal 6 karakter.',
+        ];
+    }
+}
